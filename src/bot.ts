@@ -2,6 +2,7 @@ import qrcode from "qrcode-terminal";
 import { Client, LocalAuth } from "whatsapp-web.js";
 
 import { EventType } from "./events/types/events.types";
+import { handleMessage } from "./events";
 
 // Initialize the bot
 const bot = new Client({
@@ -12,9 +13,7 @@ const bot = new Client({
 });
 
 // Set up command listener
-bot.on(EventType.Message, (message) => {
-  console.log("message received", message);
-});
+bot.on(EventType.Message, (message) => handleMessage(message));
 
 // Set up event listeners
 bot.on(EventType.Qr, (qr) => qrcode.generate(qr, { small: true }));
