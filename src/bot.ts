@@ -1,24 +1,27 @@
-import { Client } from "whatsapp-web.js";
-import { handleEvent } from "./events";
+import qrcode from "qrcode-terminal";
+import { Client, LocalAuth } from "whatsapp-web.js";
+
+import { EventType } from "./events/types/events.types";
 
 // Initialize the bot
 const bot = new Client({
+  authStrategy: new LocalAuth(),
   puppeteer: {
     args: ["--no-sandbox"],
   },
 });
 
 // Set up command listener
-bot.on("message", (message) => {
+bot.on(EventType.Message, (message) => {
   console.log("message received", message);
 });
 
 // Set up event listeners
-bot.on("qr", (qr) => handleEvent(qr));
-bot.on("ready", () => handleEvent("ready"));
-bot.on("authenticated", (session) => handleEvent(session));
-bot.on("auth_failure", (msg) => handleEvent(msg));
-bot.on("disconnected", (reason) => handleEvent(reason));
+bot.on(EventType.Qr, (qr) => qrcode.generate(qr, { small: true }));
+bot.on(EventType.Ready, () => console.log("Bot is ready!"));
+bot.on(EventType.Authenticated, (session) =>
+  console.log("Bot is authenticated!", session)
+);
 
 // Start the bot
 bot.initialize();

@@ -8,11 +8,17 @@ dependencies:
   dotenv:
     specifier: ^8.2.0
     version: 8.6.0
+  qrcode-terminal:
+    specifier: ^0.12.0
+    version: 0.12.0
   whatsapp-web.js:
     specifier: ^1.23.0
     version: 1.23.0
 
 devDependencies:
+  '@types/qrcode-terminal':
+    specifier: ^0.12.1
+    version: 0.12.1
   ts-node:
     specifier: ^8.10.2
     version: 8.10.2(typescript@3.9.10)
@@ -36,6 +42,10 @@ packages:
       undici-types: 5.26.5
     dev: false
     optional: true
+
+  /@types/qrcode-terminal@0.12.1:
+    resolution: {integrity: sha512-8OiEJdQj/C4IOAK4fW8b9f82ZR72mvWXAEXJIUv1ZMmU7XlKiEPnF6iPnYfUcUX1JLuNjrPfa4qz/yEMLQK/oQ==}
+    dev: true
 
   /@types/strip-bom@3.0.0:
     resolution: {integrity: sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ==}
@@ -780,6 +790,11 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
     dev: false
 
   /readable-stream@2.3.8:
