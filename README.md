@@ -5,10 +5,10 @@ This is a WhatsApp bot built using TypeScript and whatsapp-js.
 ## Setup
 
 1. Clone the repository to your local machine.
-2. Run `npm install` to install all the necessary dependencies.
+2. Run `pnpm install` to install all the necessary dependencies.
 3. Create a `.env` file in the root directory of the project and add your bot token and command prefix.
-4. Run `npm run build` to compile the TypeScript files into JavaScript.
-5. Run `npm start` to start the bot.
+4. Run `pnpm run build` to compile the TypeScript files into JavaScript.
+5. Run `pnpm start` to start the bot.
 
 ## Usage
 
