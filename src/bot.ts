@@ -2,7 +2,11 @@ import { Client } from "whatsapp-web.js";
 import { handleEvent } from "./events";
 
 // Initialize the bot
-const bot = new Client({});
+const bot = new Client({
+  puppeteer: {
+    args: ["--no-sandbox"],
+  },
+});
 
 // Set up command listener
 bot.on("message", (message) => {
