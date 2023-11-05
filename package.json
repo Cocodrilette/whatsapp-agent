@@ -1,0 +1,28 @@
+{
+  "name": "whatsapp-bot",
+  "version": "1.0.0",
+  "description": "A WhatsApp bot built with whatsapp-js and TypeScript",
+  "main": "src/bot.ts",
+  "scripts": {
+    "start": "ts-node src/bot.ts",
+    "build": "tsc",
+    "dev": "ts-node-dev src/bot.ts"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "whatsapp-js",
+    "TypeScript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "whatsapp-web.js": "^1.23.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0",
+    "typescript": "^3.9.3"
+  }
+}
