@@ -1,12 +1,9 @@
 import { Client, LocalAuth } from "whatsapp-web.js";
 
+import { MessageCommander } from "./events";
 import { EventType } from "./events/types/events.types";
-import { handleMessage } from "./events";
-import { handleQr } from "./commands/qr";
-import { handleReady } from "./commands/ready";
-import { handleAuthenticated } from "./commands/authenticated";
+import { handleQr, handleReady, handleAuthenticated } from "./commands";
 
-// Initialize the bot
 const bot = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
@@ -14,13 +11,10 @@ const bot = new Client({
   },
 });
 
-// Set up command listener
-bot.on(EventType.Message, (message) => handleMessage(message));
+bot.on(EventType.Message, (message) => MessageCommander(message));
 
-// Set up event listeners
 bot.on(EventType.Qr, (qr) => handleQr(qr));
 bot.on(EventType.Ready, () => handleReady());
 bot.on(EventType.Authenticated, () => handleAuthenticated());
 
-// Start the bot
 bot.initialize();

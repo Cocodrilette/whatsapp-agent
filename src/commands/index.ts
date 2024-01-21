@@ -1,11 +1,8 @@
-// Define the command functions
+export { handleAuthenticated } from "./authenticated";
+export { handleQr } from "./qr";
+export { handleReady } from "./ready";
+export { MessageCommander } from "../events";
 
-export function command1(message: any) {
-  // Implement the functionality for command1
-}
-
-export function command2(message: any) {
-  // Implement the functionality for command2
-}
-
-// Add more commands as needed
+export { handleBtcPrice, BTC_COMMAND_TOKEN } from "./btc-price";
+export { handleNewExpense, EXPENSE_COMMAND_TOKEN } from "./new-expense";
+export { handleUWattPrice, UWATT_PRICE_COMMAND_TOKEN } from "./uwatt-price";
