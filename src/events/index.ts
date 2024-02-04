@@ -1,4 +1,5 @@
-import { Message } from "whatsapp-web.js";
+import OpenAI from "openai";
+import { Chat, Message } from "whatsapp-web.js";
 
 import {
   BTC_COMMAND_TOKEN,
@@ -8,8 +9,17 @@ import {
   handleNewExpense,
   handleUWattPrice,
 } from "../commands";
+import { ChatCompletionMessageParam } from "openai/resources";
+import { config } from "../config";
 
-export const MessageCommander = async (message: Message) => {
+const SYSTEM_MESSAGE: ChatCompletionMessageParam = {
+  role: "system",
+  content: ""
+}
+
+const pastMessages: ChatCompletionMessageParam[] = []
+
+export const MessageCommander = async (message: Message, openAI: OpenAI) => {
   if (message.body.includes(EXPENSE_COMMAND_TOKEN))
     return handleNewExpense(message);
 
@@ -18,5 +28,32 @@ export const MessageCommander = async (message: Message) => {
   if (message.body === UWATT_PRICE_COMMAND_TOKEN)
     return handleUWattPrice(message);
 
-  return message.reply(`Command ${message.body} not found`);
+  const chat = await message.getChat()
+  return sendWithCompletition(chat, message, openAI)
 };
+
+async function sendWithCompletition(chat: Chat, message: Message, openAI: OpenAI) {
+  const incomingMsg: ChatCompletionMessageParam = {
+    role: "user",
+    content: message.body
+  }
+
+  pastMessages.push(incomingMsg)
+  const completition = await openAI.chat.completions.create({
+    messages: [
+      SYSTEM_MESSAGE,
+      ...pastMessages,
+      incomingMsg
+    ],
+    model: config.openAI.model,
+  })
+  const completitionContent = completition.choices[0].message.content ?? ''
+
+  const assistanceMessage: ChatCompletionMessageParam = {
+    role: "assistant",
+    content: completitionContent
+  }
+  pastMessages.push(assistanceMessage)
+
+  return chat.sendMessage(completitionContent)
+}
