@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 
 import OpenAI from "openai";
 import { Client, LocalAuth } from "whatsapp-web.js";
@@ -16,10 +16,12 @@ const bot = new Client({
 });
 
 const openAI = new OpenAI({
-  apiKey: config.openAI.apiKey
-})
+  apiKey: config.openAI.apiKey,
+});
 
-bot.on(EventType.Message, (message) => MessageCommander(message, openAI));
+bot.on(EventType.Message, (message) =>
+  MessageCommander(message, openAI).catch((error) => console.error(error))
+);
 
 bot.on(EventType.Qr, (qr) => handleQr(qr));
 bot.on(EventType.Ready, () => handleReady());
